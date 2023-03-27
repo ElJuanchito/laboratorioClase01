@@ -79,6 +79,49 @@ public abstract class CuentaBancaria {
 		this.noCuenta = noCuenta;
 	}
 
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Float.floatToIntBits(comisionMensual);
+		result = prime * result + ((noCuenta == null) ? 0 : noCuenta.hashCode());
+		result = prime * result + numeroConsignaciones;
+		result = prime * result + numeroRetiros;
+		result = prime * result + Float.floatToIntBits(saldo);
+		result = prime * result + Float.floatToIntBits(tasaAnual);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CuentaBancaria other = (CuentaBancaria) obj;
+		if(this.noCuenta.equals(other.noCuenta)) return true;
+		if (Float.floatToIntBits(comisionMensual) != Float.floatToIntBits(other.comisionMensual))
+			return false;
+		if (noCuenta == null) {
+			if (other.noCuenta != null)
+				return false;
+		} else if (!noCuenta.equals(other.noCuenta))
+			return false;
+		if (numeroConsignaciones != other.numeroConsignaciones)
+			return false;
+		if (numeroRetiros != other.numeroRetiros)
+			return false;
+		if (Float.floatToIntBits(saldo) != Float.floatToIntBits(other.saldo))
+			return false;
+		if (Float.floatToIntBits(tasaAnual) != Float.floatToIntBits(other.tasaAnual))
+			return false;
+		return true;
+	}
+
 	/**
 	 * Consigna una cantidad de dinero en la cuenta actualizando su saldo.
 	 *

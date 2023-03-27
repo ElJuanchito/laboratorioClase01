@@ -1,0 +1,179 @@
+package co.edu.uniquindio.tallerclase.model;
+
+public abstract class CuentaBancaria {
+	protected float saldo;
+	protected String noCuenta;
+	protected int numeroConsignaciones;
+	protected int numeroRetiros;
+	protected float tasaAnual;
+	protected float comisionMensual;
+
+	public CuentaBancaria() {
+
+	}
+
+	/**
+	 * este es el metodo constructor de cuentaBancaria: inicializa los atributos
+	 * saldo, tasa anual y numero de cuenta con valores pasados como parámetros.
+	 *
+	 * @param saldo
+	 * @param tasaAnual
+	 * @param noCuenta
+	 */
+	public CuentaBancaria(float saldo, float tasaAnual, String noCuenta) {
+		this.saldo = saldo;
+		this.tasaAnual = tasaAnual;
+		this.numeroConsignaciones = 0;
+		this.numeroRetiros = 0;
+		this.comisionMensual = 0;
+		this.noCuenta = noCuenta;
+	}
+
+	public float getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(float saldo) {
+		this.saldo = saldo;
+	}
+
+	public int getNumeroConsignaciones() {
+		return numeroConsignaciones;
+	}
+
+	public void setNumeroConsignaciones(int numeroConsignaciones) {
+		this.numeroConsignaciones = numeroConsignaciones;
+	}
+
+	public int getNumeroRetiros() {
+		return numeroRetiros;
+	}
+
+	public void setNumeroRetiros(int numeroRetiros) {
+		this.numeroRetiros = numeroRetiros;
+	}
+
+	public float getTasaAnual() {
+		return tasaAnual;
+	}
+
+	public void setTasaAnual(float tasaAnual) {
+		this.tasaAnual = tasaAnual;
+	}
+
+	public float getComisionMensual() {
+		return comisionMensual;
+	}
+
+	public void setComisionMensual(float comisionMensual) {
+		this.comisionMensual = comisionMensual;
+	}
+
+
+
+	public String getNoCuenta() {
+		return noCuenta;
+	}
+
+	public void setNoCuenta(String noCuenta) {
+		this.noCuenta = noCuenta;
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Float.floatToIntBits(comisionMensual);
+		result = prime * result + ((noCuenta == null) ? 0 : noCuenta.hashCode());
+		result = prime * result + numeroConsignaciones;
+		result = prime * result + numeroRetiros;
+		result = prime * result + Float.floatToIntBits(saldo);
+		result = prime * result + Float.floatToIntBits(tasaAnual);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CuentaBancaria other = (CuentaBancaria) obj;
+		if (Float.floatToIntBits(comisionMensual) != Float.floatToIntBits(other.comisionMensual))
+			return false;
+		if (noCuenta == null) {
+			if (other.noCuenta != null)
+				return false;
+		} else if (!noCuenta.equals(other.noCuenta))
+			return false;
+		if (numeroConsignaciones != other.numeroConsignaciones)
+			return false;
+		if (numeroRetiros != other.numeroRetiros)
+			return false;
+		if (Float.floatToIntBits(saldo) != Float.floatToIntBits(other.saldo))
+			return false;
+		if (Float.floatToIntBits(tasaAnual) != Float.floatToIntBits(other.tasaAnual))
+			return false;
+		return true;
+	}
+
+	/**
+	 * Consigna una cantidad de dinero en la cuenta actualizando su saldo.
+	 *
+	 * @param valor
+	 * @throws Exception
+	 */
+	public void consignar(float valor) throws Exception {
+		this.saldo += valor;
+	}
+
+	/**
+	 * Retirar una cantidad de dinero en la cuenta actualizando su saldo. El
+	 * valor a retirar no debe superar el saldo.
+	 *
+	 * @param valor
+	 * @throws Exception
+	 */
+	public void retirar(float valor) throws Exception {
+		if (this.saldo >= valor) {
+			this.saldo -= valor;
+			return;
+		}
+		throw new Exception("Error al retirar, el valor supera el saldo en cuenta");
+	}
+
+	/**
+	 * Calcular el interés mensual de la cuenta y actualiza el saldo
+	 * correspondiente.
+	 */
+	protected void calcularInteresMensual() {
+		saldo += (float) ((saldo) * (0.10) * (1 / 12));
+	}
+
+	/**
+	 * Actualiza el saldo restándole la comisión mensual y calculando el interés
+	 * mensual correspondiente (invoca el metodo calcularInteresMensual() ).
+	 *
+	 * @throws Exception
+	 */
+	public void extractoMensual() throws Exception {
+		saldo -= comisionMensual;
+		calcularInteresMensual();
+	}
+
+	@Override
+	public String toString() {
+		return "CuentaBancaria [saldo=" + saldo + ", numeroConsignaciones=" + numeroConsignaciones + ", numeroRetiros="
+				+ numeroRetiros + ", tasaAnual=" + tasaAnual + ", comisionMensual=" + comisionMensual + "]";
+	}
+
+	/**
+	 * muestra en consola los valores de los atributos.
+	 *
+	 */
+	public abstract void imprimir();
+}

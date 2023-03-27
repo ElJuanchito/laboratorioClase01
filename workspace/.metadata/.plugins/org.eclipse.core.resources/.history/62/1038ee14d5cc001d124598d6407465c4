@@ -1,0 +1,16 @@
+package co.edu.uniquindio.tallerclase.test;
+
+import static org.junit.Assert.*;
+
+import co.edu.uniquindio.tallerclase.model.CuentaAhorros;
+
+public class Test {
+
+	@org.junit.Test
+	public void test() {
+		CuentaAhorros cuenta1 = new CuentaAhorros(100, 1, "12345");
+		CuentaAhorros cuenta2 = new CuentaAhorros(200, 24, "12345");
+
+	}
+
+}
